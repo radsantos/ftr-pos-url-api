@@ -1,0 +1,49 @@
+{
+  "name": "ftr-pos-url-api",
+  "version": "1.0.0",
+  "description": "Criar uma aplicação que permita o cadastro, listagem e remoção de links encurtados, geração de relatório dos acessos de cada link e também o redirecionamento correto do link encurtado para o link original.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "build": "tsc",
+    "start": "ts-node src/server.ts",
+    "migrate": "ts-node src/db/migrate.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/radsantos/ftr-pos-url-api.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/radsantos/ftr-pos-url-api/issues"
+  },
+  "homepage": "https://github.com/radsantos/ftr-pos-url-api#readme",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.920.0",
+    "@aws-sdk/s3-request-presigner": "^3.920.0",
+    "@fastify/cors": "^11.1.0",
+    "csv-stringify": "^6.6.0",
+    "drizzle-orm": "^0.44.7",
+    "fastify": "^5.6.1",
+    "fastify-sensible": "^3.1.2",
+    "lucide-react": "^0.552.0",
+    "pg": "^8.16.3",
+    "react-router-dom": "^7.9.5",
+    "ts-node": "^10.9.2",
+    "uuid": "^13.0.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.9.2",
+    "@types/pg": "^8.15.6",
+    "autoprefixer": "^10.4.21",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.6",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.16",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
