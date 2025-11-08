@@ -27,10 +27,10 @@ const SHORT_CODE_REGEX = /^[0-9A-Za-z_-]{4,64}$/;
 
 type LinkItem = { 
   id: string; 
-  originalUrl: string; // Espera camelCase
-  shortCode: string;   // Espera camelCase
-  accessCount: number; // Espera camelCase
-  createdAt: string;   // Espera camelCase
+  originalUrl: string; 
+  shortCode: string;  
+  accessCount: number; 
+  createdAt: string;   
 };
 
 // --- Hooks ---
@@ -40,7 +40,7 @@ function useFetchLinks(){
   const [error,setError]=useState<string|null>(null);
 
   async function fetchList(){ 
-    if (loading) return; // Garante que não haja fetches concorrentes
+    if (loading) return; 
     setLoading(true); setError(null); 
     try{ 
       const res = await fetch(`${BACKEND}/links`); 
@@ -49,16 +49,16 @@ function useFetchLinks(){
       
       console.log("Dados brutos recebidos da API:", data); 
 
-      // O Backend retorna { items: [ ... ] }, então extraímos o array.
+     
       const rawList = data.items || [];
 
-      // Mapear chaves de snake_case para camelCase
+     
       const list: LinkItem[] = rawList.map((item: any) => ({
         id: item.id,
-        originalUrl: item.original_url, // original_url -> originalUrl
-        shortCode: item.short_code,     // short_code -> shortCode
-        accessCount: item.access_count, // access_count -> accessCount
-        createdAt: item.created_at      // created_at -> createdAt
+        originalUrl: item.original_url,
+        shortCode: item.short_code,
+        accessCount: item.access_count,
+        createdAt: item.created_at
       }));
       
       setItems(list);
@@ -70,11 +70,11 @@ function useFetchLinks(){
     } 
   }
 
-  // 1. Fetch inicial e Polling em background
+  
   useEffect(()=>{ 
     void fetchList(); 
 
-    // Polling a cada 15 segundos para atualização em background
+   
     const interval = setInterval(() => {
       void fetchList();
     }, 15000); 
@@ -82,10 +82,10 @@ function useFetchLinks(){
     return () => clearInterval(interval);
   },[]); 
   
-  // 2. Listener de Visibilidade (Atualiza ao retornar para a aba)
+ 
   useEffect(() => {
     const handleVisibilityChange = () => {
-      // Se a aba voltar a ficar visível, force um fetch
+    
       if (document.visibilityState === 'visible') {
         console.log("Tab visível. Atualizando links após retorno.");
         void fetchList();
@@ -231,7 +231,7 @@ function NewLinkCard({onCreated}:{onCreated:()=>void}){
       <label className="block text-xs font-medium text-gray-700 mb-1">LINK ENCURTADO</label>
       <div className="flex mb-8">
         <span className="inline-flex items-center px-3 text-sm text-gray-900 bg-gray-100 border border-r-0 border-gray-300 rounded-l-lg font-medium">
-          {/* 💥 ALTERAÇÃO AQUI: Substituindo a URL dinâmica por 'brev.ly' */}
+          {}
           brev.ly/
         </span>
         <input 
@@ -311,13 +311,12 @@ function LinksList({items,onRefresh,loading}:{items:LinkItem[];onRefresh:()=>voi
         <div key={it.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition duration-200">
           <div className="min-w-0 flex-1">
             <a 
-              // 🚀 CORREÇÃO: Adicionando o prefixo '/r/' para chamar a rota de redirecionamento do Fastify
               href={`${BACKEND}/r/${it.shortCode}`} 
               target="_blank" 
               rel="noreferrer" 
               className="text-indigo-600 font-medium hover:underline flex items-center gap-1 truncate max-w-full"
             >
-              {/* 💥 ALTERAÇÃO AQUI: Substituindo a URL dinâmica por 'brev.ly' */}
+              
               <span className="truncate">brev.ly/r/{it.shortCode}</span>
               <ExternalLink size={14} className="shrink-0"/>
             </a>
@@ -414,10 +413,6 @@ function RedirectPage(){
   
   useEffect(()=>{ 
     if(short){ 
-      // Redireciona o navegador para o endpoint do Fastify
-      // NOTE: Não é mais necessário, pois o link da lista já aponta para a rota de redirecionamento (/r/:short)
-      // Esta página é mantida para capturar links que vieram do frontend (ex: /boll), mas o ideal é que os links
-      // da lista de links já funcionem diretamente.
       window.location.replace(`${BACKEND}/${short}`);
     } else {
       setError('Código curto não fornecido.');
