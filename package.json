@@ -1,49 +1,40 @@
 {
-  "name": "ftr-pos-url-api",
+  "name": "ftr-pos-url-monorepo",
   "version": "1.0.0",
-  "description": "Criar uma aplicação que permita o cadastro, listagem e remoção de links encurtados, geração de relatório dos acessos de cada link e também o redirecionamento correto do link encurtado para o link original.",
-  "main": "index.js",
+  "description": "API do Encurtador de Links",
+  "type": "module",
+  "main": "src/server.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "start": "ts-node src/server.ts",
-    "migrate": "ts-node src/db/migrate.ts"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/radsantos/ftr-pos-url-api.git"
+    "dev": "pnpm --filter server dev",
+    "db:migrate": "pnpm --filter server exec ts-node src/db/migrate.ts",
+    "db:push": "pnpm exec dotenv -e .env -- drizzle-kit push --config ./server/drizzle.config.ts",
+    "build": "pnpm --filter server build",
+    "migrate": "ts-node server/src/db/migrate.ts",
+    "dev:web": "pnpm --filter ftr-pos-frontend dev",
+    "start": "docker compose up"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/radsantos/ftr-pos-url-api/issues"
-  },
-  "homepage": "https://github.com/radsantos/ftr-pos-url-api#readme",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.920.0",
-    "@aws-sdk/s3-request-presigner": "^3.920.0",
+    "@aws-sdk/client-s3": "^3.932.0",
+    "@aws-sdk/s3-request-presigner": "^3.932.0",
     "@fastify/cors": "^11.1.0",
     "csv-stringify": "^6.6.0",
     "drizzle-orm": "^0.44.7",
-    "fastify": "^5.6.1",
-    "fastify-sensible": "^3.1.2",
-    "lucide-react": "^0.552.0",
+    "fastify": "^5.6.2",
     "pg": "^8.16.3",
-    "react-router-dom": "^7.9.5",
     "ts-node": "^10.9.2",
     "uuid": "^13.0.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
-    "autoprefixer": "^10.4.21",
     "dotenv": "^17.2.3",
-    "drizzle-kit": "^0.31.6",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.16",
+    "drizzle-kit": "^0.31.7",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }

@@ -1,0 +1,16 @@
+services:
+  web:
+    build:
+      context: ./web 
+      dockerfile: Dockerfile
+    container_name: ftr-pos-web
+    restart: always
+    depends_on:
+      - api
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./.env 
+    environment:
+      - VITE_APP_API_URL=http://ftr-pos-api:3000
+    command: pnpm run dev --host 0.0.0.0

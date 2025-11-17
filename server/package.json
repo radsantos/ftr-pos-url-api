@@ -1,0 +1,37 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "Backend API",
+  "type": "module",
+  "main": "src/server.ts",
+  "scripts": {
+    "dev": "tsx watch --env-file ../.env src/server.ts",
+    "build": "tsc",
+    "db:migrate": "npx ts-node --project ../tsconfig.json src/db/migrate.ts",
+    "migrate": "ts-node src/db/migrate.ts"
+  },
+  "packageManager": "pnpm@10.19.0",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.932.0",
+    "@aws-sdk/s3-request-presigner": "^3.932.0",
+    "@fastify/cors": "^11.1.0",
+    "csv-stringify": "^6.6.0",
+    "drizzle-orm": "^0.44.7",
+    "fastify": "^5.6.2",
+    "pg": "^8.16.3",
+    "ts-node": "^10.9.2",
+    "uuid": "^13.0.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1",
+    "@types/pg": "^8.15.6",
+    "dotenv": "^17.2.3",
+    "drizzle-kit": "^0.31.7",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.9.3"
+  }
+}
