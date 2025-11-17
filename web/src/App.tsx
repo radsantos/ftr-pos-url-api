@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, Link } from "react-router-dom";
 import { X, ExternalLink, Trash2, Download, RefreshCw, Link as LinkIcon } from 'lucide-react';
 
-// Função para resolver a URL do backend 
 function resolveBackendUrl(): string {
   try {
     const env = (import.meta as any)?.env;
@@ -21,7 +20,6 @@ function resolveBackendUrl(): string {
 }
 
 const BACKEND = resolveBackendUrl();
-// Regex para códigos curtos (min 4, max 64, alfanumérico, hífen, underline)
 const SHORT_CODE_REGEX = /^[0-9A-Za-z_-]{4,64}$/;
 
 

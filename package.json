@@ -1,35 +1,40 @@
 {
-  "name": "server",
+  "name": "ftr-pos-url-monorepo",
   "version": "1.0.0",
   "description": "API do Encurtador de Links",
+  "type": "module",
+  "main": "src/server.ts",
   "scripts": {
-    "dev": "npx ts-node-dev --respawn --transpile-only server/src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js",
-    "migrate": "ts-node server/src/db/migrate.ts"
+    "dev": "pnpm --filter server dev",
+    "db:migrate": "pnpm --filter server exec ts-node src/db/migrate.ts",
+    "db:push": "pnpm exec dotenv -e .env -- drizzle-kit push --config ./server/drizzle.config.ts",
+    "build": "pnpm --filter server build",
+    "migrate": "ts-node server/src/db/migrate.ts",
+    "dev:web": "pnpm --filter ftr-pos-frontend dev",
+    "start": "docker compose up"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.920.0",
-    "@aws-sdk/s3-request-presigner": "^3.920.0",
+    "@aws-sdk/client-s3": "^3.932.0",
+    "@aws-sdk/s3-request-presigner": "^3.932.0",
     "@fastify/cors": "^11.1.0",
     "csv-stringify": "^6.6.0",
     "drizzle-orm": "^0.44.7",
-    "fastify": "^5.6.1",
-    "fastify-sensible": "^3.1.2",
+    "fastify": "^5.6.2",
     "pg": "^8.16.3",
     "ts-node": "^10.9.2",
     "uuid": "^13.0.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@types/node": "^24.9.2",
+    "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
     "dotenv": "^17.2.3",
-    "drizzle-kit": "^0.31.6",
+    "drizzle-kit": "^0.31.7",
     "ts-node-dev": "^2.0.0",
+    "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
 }

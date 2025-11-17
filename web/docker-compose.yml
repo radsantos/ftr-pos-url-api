@@ -1,25 +1,16 @@
-version: '3.8'
-
 services:
-  db:
-    # ... (db service, sem alterações)
-    
-  api:
-    # ... (api service, sem alterações)
-
-  frontend:
+  web:
     build:
-      context: ./frontend 
+      context: ./web 
       dockerfile: Dockerfile
-    container_name: ftr-pos-frontend
+    container_name: ftr-pos-web
     restart: always
     depends_on:
       - api
     ports:
-      - "5174:5174" 
-    # 🎯 ADICIONE ESTE BLOCO PARA LER O .ENV DA RAIZ
+      - "5173:5173"
     env_file:
       - ./.env 
     environment:
-      # ⚠️ Esta variável é lida no build para configurar o código do frontend
-      - VITE_APP_API_URL=http://api:${PORT} 
+      - VITE_APP_API_URL=http://ftr-pos-api:3000
+    command: pnpm run dev --host 0.0.0.0

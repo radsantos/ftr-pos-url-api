@@ -1,4 +1,4 @@
-import { db, schema } from "../db";
+import { db, schema } from "../db/index.js";
 import { stringify } from "csv-stringify/sync";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";

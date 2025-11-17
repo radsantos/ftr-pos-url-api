@@ -1,0 +1,47 @@
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ftr-pos-db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -d ${POSTGRES_DB} -U ${POSTGRES_USER}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: always
+
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    container_name: ftr-pos-api
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+    depends_on:
+      db:
+        condition: service_started
+    restart: always
+
+  web:
+    build:
+      context: .
+      dockerfile: web/Dockerfile
+    container_name: ftr-pos-web
+    ports:
+      - "5173:5173"
+    depends_on:
+      - api
+    restart: always
+
+volumes:
+  postgres_data:

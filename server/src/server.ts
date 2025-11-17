@@ -1,6 +1,5 @@
 import Fastify from "fastify";
-import sensible from "fastify-sensible";
-import { linkRoutes } from "./routes/links";
+import { linkRoutes } from "./routes/links.js";
 import { fastifyCors } from "@fastify/cors";
 import dotenv from "dotenv";
 
@@ -14,8 +13,6 @@ fastify.register(fastifyCors, {
   origin: "*",
   methods: ["GET", "POST", "DELETE"],
 });
-
-fastify.register(sensible);
 
 fastify.register(linkRoutes);
 

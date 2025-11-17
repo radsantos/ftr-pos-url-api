@@ -1,16 +1,20 @@
 import { FastifyInstance } from "fastify";
-import { db, schema } from "../db";
+import { db, schema } from "../db/index.js";
 import { eq, sql, desc } from "drizzle-orm";
 import { v4 as uuidv4 } from "uuid";
-import { generateShortCode, SHORT_CODE_REGEX } from "../util/short";
-import { createLinkSchema } from "../schemas/request";
+import { generateShortCode, SHORT_CODE_REGEX } from "../util/short.js";
+import { createLinkSchema } from "../schemas/request.js";
 import { z } from "zod";
-import { createCsvAndUpload } from "../service/exportService";
+import { createCsvAndUpload } from "../service/exportService.js";
 
 export async function linkRoutes(fastify: FastifyInstance) {
+  fastify.get("/", () => {
+    return { message: "Up" };
+  });
+
   fastify.post("/links", async (request, reply) => {
     const body = createLinkSchema.safeParse(request.body);
-    if (!body.success) return reply.badRequest(body.error.message);
+    if (!body.success) return reply.status(400).send(body.error.message);
 
     const { original_url, short_code: desired } = body.data;
 
