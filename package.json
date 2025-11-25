@@ -6,10 +6,10 @@
   "main": "src/server.ts",
   "scripts": {
     "dev": "pnpm --filter server dev",
-    "db:migrate": "pnpm --filter server exec ts-node src/db/migrate.ts",
-    "db:push": "pnpm exec dotenv -e .env -- drizzle-kit push --config ./server/drizzle.config.ts",
+    "db:migrate": "tsx server/src/db/migrate.ts",
+    "db:push": "dotenv -e .env.local -- drizzle-kit push --config ./server/drizzle.config.ts",
     "build": "pnpm --filter server build",
-    "migrate": "ts-node server/src/db/migrate.ts",
+    "migrate": "tsx server/src/db/migrate.ts",
     "dev:web": "pnpm --filter ftr-pos-frontend dev",
     "start": "docker compose up"
   },

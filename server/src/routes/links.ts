@@ -134,7 +134,7 @@ export async function linkRoutes(fastify: FastifyInstance) {
   });
 
   //  Redirecionamento e incremento
-  fastify.get("/r/:short", async (request, reply) => {
+  fastify.get("/:short", async (request, reply) => {
     const { short } = request.params as { short: string };
 
     // Buscar o link pelo código curto

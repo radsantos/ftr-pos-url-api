@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, useNavigate, useParams, Link } from "react-router-dom";
 import { X, ExternalLink, Trash2, Download, RefreshCw, Link as LinkIcon } from 'lucide-react';
+import './index.css';
+import Logo from './assets/img/Logo.svg';
 
 function resolveBackendUrl(): string {
-  try {
-    const env = (import.meta as any)?.env;
-    if (env && typeof env.VITE_BACKEND_URL === "string" && env.VITE_BACKEND_URL.trim() !== "") {
-      return env.VITE_BACKEND_URL.replace(/\/$/, "");
-    }
-  } catch {}
-  try {
-    const p = (process as any)?.env;
-    if (p && typeof p.VITE_BACKEND_URL === "string" && p.VITE_BACKEND_URL.trim() !== "") {
-      return p.VITE_BACKEND_URL.replace(/\/$/, "");
-    }
-  } catch {}
-  // URL de fallback
-  return "http://localhost:3000"; 
+  const backend = import.meta.env.VITE_BACKEND_URL;
+  if (backend && typeof backend === "string" && backend.trim() !== "") {
+    return backend.replace(/\/$/, "");
+  }
+  return "http://localhost:3000";
 }
 
 const BACKEND = resolveBackendUrl();
-const SHORT_CODE_REGEX = /^[0-9A-Za-z_-]{4,64}$/;
+const SHORT_CODE_REGEX = /^[0-9A-Za-z_-]{1,64}$/;
 
 
 type LinkItem = { 
@@ -101,14 +94,7 @@ function useFetchLinks(){
 
 
 function LogoIcon() {
-  return (
-    <svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <circle cx="12" cy="12" r="12" fill="#8B9BEF"/>
-      <img src="../asst/img/Logo.svg"/>
-    </svg>
-    
-    
-  );
+  return <img src={Logo} alt="brev.ly" className="w-20 h-20" />;
 }
 
 
@@ -153,16 +139,14 @@ function EmptyState({text}:{text?:string}){
   );
 }
 
-function Header(){ 
+function Header() { 
   return (
-    <header className="max-w-6xl mx-auto px-4 py-8 flex items-center justify-center">
-      <div className="flex items-center gap-3">
-        <LogoIcon /> {}
-        <div className="text-2xl font-bold text-gray-800">brev.ly</div>
-      </div>
+    <header className="max-w-6xl mx-auto px-4 py-6 flex items-center justify-start">
+      <LogoIcon />
     </header> 
   );
 }
+
 
 function NewLinkCard({onCreated}:{onCreated:()=>void}){ 
   const [originalUrl,setOriginalUrl]=useState(''); 
@@ -309,13 +293,12 @@ function LinksList({items,onRefresh,loading}:{items:LinkItem[];onRefresh:()=>voi
         <div key={it.id} className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 border border-gray-100 rounded-lg shadow-sm hover:shadow-md transition duration-200">
           <div className="min-w-0 flex-1">
             <a 
-              href={`${BACKEND}/r/${it.shortCode}`} 
+              href={`${BACKEND}/${it.shortCode}`} 
               target="_blank" 
               rel="noreferrer" 
               className="text-indigo-600 font-medium hover:underline flex items-center gap-1 truncate max-w-full"
             >
-              
-              <span className="truncate">brev.ly/r/{it.shortCode}</span>
+              <span className="truncate">brev.ly/{it.shortCode}</span>
               <ExternalLink size={14} className="shrink-0"/>
             </a>
             <div className="text-sm text-gray-600 truncate mt-1">{it.originalUrl}</div>

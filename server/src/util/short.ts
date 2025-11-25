@@ -14,4 +14,4 @@ export function generateShortCode(len = 6) {
   return randBase62(len);
 }
 
-export const SHORT_CODE_REGEX = /^[0-9A-Za-z_-]{4,64}$/;
+export const SHORT_CODE_REGEX = /^[0-9A-Za-z_-]{1,64}$/;
