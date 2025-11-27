@@ -22,3 +22,12 @@ Para esse desafio é esperado que você utilize o banco de dados Postgres.
     - [X]  Deve ser gerado um nome aleatório e único para o arquivo
     - [X]  Deve ser possível realizar a listagem de forma performática
     - [X]  O CSV deve ter campos como, URL original, URL encurtada, contagem de acessos e data de criação.
+
+ ## Instruções para instalar
+ pnpm install\
+ configurar os arquivos .env\
+ rodar o comando docker-compose up --build -d\
+ rodar o comaando pnpm --filter server dev para iniciar o server\
+ rodar o comando pnpm --filter ftr-pos-frontend dev para iniciar o web\
+ 
+ 
