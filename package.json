@@ -11,8 +11,9 @@
     "build": "pnpm --filter server build",
     "migrate": "tsx server/src/db/migrate.ts",
     "dev:web": "pnpm --filter ftr-pos-frontend dev",
-    "start": "docker compose up",
-    "dev:m": "pnpm migrate && pnpm dev"
+    "start": "docker compose up -d",
+    "down": "docker compose down -v",
+    "dev:migrate": "pnpm db:migrate && concurrently \"pnpm dev\" \"pnpm dev:web\""
   },
   "keywords": [],
   "author": "",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/node": "^24.10.1",
     "@types/pg": "^8.15.6",
+    "concurrently": "^9.2.1",
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.7",
     "tsx": "^4.20.6",
