@@ -11,7 +11,8 @@
     "build": "pnpm --filter server build",
     "migrate": "tsx server/src/db/migrate.ts",
     "dev:web": "pnpm --filter ftr-pos-frontend dev",
-    "start": "docker compose up"
+    "start": "docker compose up",
+    "dev:m": "pnpm migrate && pnpm dev"
   },
   "keywords": [],
   "author": "",
@@ -24,7 +25,6 @@
     "drizzle-orm": "^0.44.7",
     "fastify": "^5.6.2",
     "pg": "^8.16.3",
-    "ts-node": "^10.9.2",
     "uuid": "^13.0.0",
     "zod": "^4.1.12"
   },
@@ -33,7 +33,6 @@
     "@types/pg": "^8.15.6",
     "dotenv": "^17.2.3",
     "drizzle-kit": "^0.31.7",
-    "ts-node-dev": "^2.0.0",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
   }
