@@ -27,7 +27,7 @@ Para esse desafio é esperado que você utilize o banco de dados Postgres.
  pnpm install\
  configurar os arquivos .env\
  rodar o comando docker-compose up --build -d\
- rodar o comaando pnpm --filter server dev para iniciar o server\
+ rodar o comando pnpm --filter server dev para iniciar o server\
  rodar o comando pnpm --filter ftr-pos-frontend dev para iniciar o web\
  
  
