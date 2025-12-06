@@ -29,7 +29,7 @@ Para esse desafio é esperado que você utilize o banco de dados Postgres.
  rodar o comando docker-compose up --build -d\
  rodar o comando pnpm --filter server dev para iniciar o server\
  rodar o comando pnpm --filter ftr-pos-frontend dev para iniciar o web\
- ou rodar os comandos:\
+ ou rodar os scripts:\
  pnpm install\
  pnpm start\
  pnpm dev:migrate
