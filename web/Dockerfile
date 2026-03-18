@@ -2,16 +2,20 @@ FROM node:20-slim
 
 WORKDIR /app
 
-RUN npm install -g pnpm
+COPY web/package.json ./
 
-COPY package.json pnpm-lock.yaml ./
+RUN npm install
 
-RUN pnpm install
+RUN rm -rf node_modules
 
-COPY . .
+COPY web/ .
 
-RUN echo "VITE_APP_API_URL=http://api:3000" > .env
+RUN npm install
+
+RUN echo "VITE_BACKEND_URL=http://api:3000" > .env
+
+RUN ls -la node_modules/.bin/
 
 EXPOSE 5173
 
-CMD ["pnpm", "run", "dev", "--host", "0.0.0.0"]
+CMD ["npx", "vite", "--port", "5173", "--host", "0.0.0.0"]

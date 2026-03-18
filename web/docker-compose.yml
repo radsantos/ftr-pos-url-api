@@ -4,10 +4,11 @@ services:
       context: .
       dockerfile: web/Dockerfile
     container_name: ftr-pos-web
-    restart: always
-    depends_on:
-      - api
     ports:
       - "5173:5173"
     environment:
-      - VITE_APP_API_URL=http://api:3000
+      - VITE_BACKEND_URL=http://api:3000
+    depends_on:
+      - api
+    restart: always
+    
